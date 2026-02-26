@@ -1,149 +1,100 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Emissor de Holerite</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="toolbar no-print">
-    <div class="left">
-      <strong>Emissor de Holerite</strong>
-      <span class="muted">Automático (INSS/IRRF/FGTS)</span>
+
+<div class="toolbar no-print">
+  <button onclick="window.print()">Imprimir / PDF</button>
+</div>
+
+<main class="page">
+
+<section class="box">
+
+  <!-- LOGO -->
+  <div class="logo-box">
+    <label class="logo-label">
+      <input type="file" id="empresaLogo" accept="image/*">
+      Adicionar logo da empresa
+    </label>
+    <img id="logoPreview">
+  </div>
+
+  <!-- EMPRESA -->
+  <div class="grid empresa">
+    <div>
+      <label>CNPJ *</label>
+      <input id="empresaCnpj" placeholder="00.000.000/0000-00">
     </div>
-    <div class="right">
-      <button class="btn" id="btnPrint">Imprimir / PDF</button>
+    <div>
+      <label>Empresa *</label>
+      <input id="empresaNome">
+    </div>
+    <div>
+      <label>Endereço</label>
+      <input id="empresaEndereco">
     </div>
   </div>
 
-  <main class="page" id="holerite">
-    <!-- CABEÇALHO -->
-    <section class="box">
-      <div class="head-grid">
-        <div>
-          <div class="title">RECIBO DE PAGAMENTO DE SALÁRIO</div>
-          <div class="subtitle">Referente ao mês/ano informado</div>
-        </div>
-        <div class="meta">
-          <div class="field">
-            <label>Mês/Ano *</label>
-            <input id="mes" type="month" />
-          </div>
-        </div>
-      </div>
+</section>
 
-      <div class="form-grid">
-        <div class="field">
-          <label>Funcionário *</label>
-          <input id="nome" type="text" placeholder="Nome completo" />
-        </div>
+<section class="box">
+  <h2>RECIBO DE PAGAMENTO DE SALÁRIO</h2>
 
-        <div class="field">
-          <label>Cargo (opcional)</label>
-          <input id="cargo" type="text" placeholder="Ex.: Auxiliar, Vendedor..." />
-        </div>
+  <div class="grid">
+    <div>
+      <label>Funcionário *</label>
+      <input id="nome">
+    </div>
+    <div>
+      <label>Cargo</label>
+      <input id="cargo">
+    </div>
+    <div>
+      <label>Mês/Ano *</label>
+      <input type="month" id="mes">
+    </div>
+    <div>
+      <label>Salário Bruto (R$) *</label>
+      <input id="salario">
+    </div>
+  </div>
 
-        <div class="field">
-          <label>Dependentes (opcional)</label>
-          <input id="dependentes" type="number" min="0" step="1" value="0" />
-        </div>
+  <label class="check">
+    <input type="checkbox" id="simp" checked>
+    Usar desconto simplificado
+  </label>
+</section>
 
-        <div class="field">
-          <label>Salário Bruto (R$) *</label>
-          <input id="salario" type="text" inputmode="decimal" placeholder="Ex.: 3500,00" />
-        </div>
-      </div>
+<section class="box">
+<table>
+  <tr><th>Descrição</th><th>Vencimentos</th><th>Descontos</th></tr>
+  <tr><td>Salário Base</td><td id="vSalario">R$ 0,00</td><td></td></tr>
+  <tr><td>INSS</td><td></td><td id="dInss">R$ 0,00</td></tr>
+  <tr><td>IRRF</td><td></td><td id="dIrrf">R$ 0,00</td></tr>
+</table>
+</section>
 
-      <div class="options no-print">
-        <label class="check">
-          <input id="usarDescontoSimplificado" type="checkbox" checked />
-          Usar desconto simplificado mensal (mais vantajoso quando aplicável)
-        </label>
-      </div>
-    </section>
+<section class="box resumo">
+  <div>Total Vencimentos: <strong id="totalV"></strong></div>
+  <div>Total Descontos: <strong id="totalD"></strong></div>
+  <div class="liq">Líquido a Receber: <strong id="liquido"></strong></div>
+  <div class="fgts">FGTS (8%): <strong id="fgts"></strong></div>
+</section>
 
-    <!-- TABELA -->
-    <section class="box">
-      <div class="table-head">
-        <div>Descrição</div>
-        <div class="right-align">Vencimentos</div>
-        <div class="right-align">Descontos</div>
-      </div>
+<section class="box">
+  <p class="decl">Declaro ter recebido a importância líquida descrita neste recibo.</p>
+  <div class="linha"></div>
+  <small>Assinatura</small>
+</section>
 
-      <div class="table-body">
-        <div class="row">
-          <div class="desc">Salário Base</div>
-          <div class="val right-align" id="vSalario">R$ 0,00</div>
-          <div class="val right-align"></div>
-        </div>
+</main>
 
-        <div class="row">
-          <div class="desc">INSS (progressivo)</div>
-          <div class="val right-align"></div>
-          <div class="val right-align" id="dInss">R$ 0,00</div>
-        </div>
-
-        <div class="row">
-          <div class="desc">IRRF</div>
-          <div class="val right-align"></div>
-          <div class="val right-align" id="dIrrf">R$ 0,00</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOTAIS -->
-    <section class="box">
-      <div class="totals">
-        <div class="trow">
-          <div>Total Vencimentos</div>
-          <div id="totalV" class="tval">R$ 0,00</div>
-        </div>
-        <div class="trow">
-          <div>Total Descontos</div>
-          <div id="totalD" class="tval">R$ 0,00</div>
-        </div>
-        <div class="trow highlight">
-          <div>Líquido a Receber →</div>
-          <div id="liquido" class="tval">R$ 0,00</div>
-        </div>
-      </div>
-
-      <div class="bases">
-        <div class="bitem">
-          <div class="blabel">Base INSS</div>
-          <div class="bval" id="baseInss">R$ 0,00</div>
-        </div>
-        <div class="bitem">
-          <div class="blabel">Base IRRF</div>
-          <div class="bval" id="baseIrrf">R$ 0,00</div>
-        </div>
-        <div class="bitem">
-          <div class="blabel">FGTS do mês (8%)</div>
-          <div class="bval" id="fgts">R$ 0,00</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ASSINATURA -->
-    <section class="box">
-      <div class="decl">
-        DECLARO TER RECEBIDO A IMPORTÂNCIA LÍQUIDA DESCRITA NESTE RECIBO DE PAGAMENTO
-      </div>
-
-      <div class="sign">
-        <div class="sig">
-          <div class="line"></div>
-          <div class="lab">Assinatura</div>
-        </div>
-        <div class="sig">
-          <div class="line"></div>
-          <div class="lab">Data</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

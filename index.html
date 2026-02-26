@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emissor de Holerite</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="toolbar no-print">
+    <div class="toolbar-left">
+      <strong>Emissor de Holerite</strong>
+      <span class="muted">Preencha, calcule e imprima em PDF</span>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn" id="btnAddEarning">+ Vencimento</button>
+      <button class="btn" id="btnAddDeduction">+ Desconto</button>
+      <button class="btn btn-secondary" id="btnClear">Limpar</button>
+      <button class="btn btn-primary" id="btnPrint">Imprimir / PDF</button>
+    </div>
+  </div>
+
+  <main class="page" id="holerite">
+    <!-- CABEÇALHO -->
+    <section class="box">
+      <div class="grid-head">
+        <div class="col">
+          <div class="field">
+            <label>Nome da empresa *</label>
+            <input id="empresaNome" type="text" placeholder="Ex.: Alfa Paraná - Impressão Criativa" />
+          </div>
+          <div class="field">
+            <label>Endereço da empresa *</label>
+            <input id="empresaEndereco" type="text" placeholder="Rua, nº, bairro, cidade/UF" />
+          </div>
+          <div class="field">
+            <label>CNPJ da empresa *</label>
+            <input id="empresaCnpj" type="text" placeholder="00.000.000/0000-00" />
+          </div>
+        </div>
+
+        <div class="col col-right">
+          <div class="title">
+            <div class="title-big">RECIBO DE PAGAMENTO DE SALÁRIO</div>
+            <div class="title-sub">referente ao mês/ano</div>
+          </div>
+          <div class="field">
+            <label>Mês de fechamento *</label>
+            <input id="mesFechamento" type="month" />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-emp">
+        <div class="field">
+          <label>Código func. *</label>
+          <input id="funcCodigo" type="text" placeholder="Ex.: 001" />
+        </div>
+        <div class="field span-2">
+          <label>Nome do funcionário *</label>
+          <input id="funcNome" type="text" placeholder="Nome completo" />
+        </div>
+        <div class="field span-2">
+          <label>Cargo do funcionário *</label>
+          <input id="funcCargo" type="text" placeholder="Ex.: Auxiliar Administrativo" />
+        </div>
+        <div class="field">
+          <label>Admissão *</label>
+          <input id="funcAdmissao" type="date" />
+        </div>
+      </div>
+    </section>
+
+    <!-- TABELA PRINCIPAL -->
+    <section class="box">
+      <div class="table-head">
+        <div>Descrição</div>
+        <div>Referência</div>
+        <div class="align-right">Vencimentos</div>
+        <div class="align-right">Descontos</div>
+      </div>
+
+      <div class="rows" id="rows">
+        <!-- Linhas inseridas via JS -->
+      </div>
+    </section>
+
+    <!-- MENSAGENS + TOTAIS -->
+    <section class="box">
+      <div class="bottom-grid">
+        <div class="messages">
+          <div class="subhead">MENSAGENS</div>
+          <textarea id="mensagens" placeholder="Observações, férias, horas extras, etc."></textarea>
+        </div>
+
+        <div class="totals">
+          <div class="totals-row">
+            <div class="totals-label">Total Vencimentos</div>
+            <div class="totals-value" id="totalVencimentos">R$ 0,00</div>
+          </div>
+          <div class="totals-row">
+            <div class="totals-label">Total Descontos</div>
+            <div class="totals-value" id="totalDescontos">R$ 0,00</div>
+          </div>
+          <div class="totals-row highlight">
+            <div class="totals-label">Líquido a Receber →</div>
+            <div class="totals-value" id="liquidoReceber">R$ 0,00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bases">
+        <div class="base-item">
+          <div class="base-label">Salário Base</div>
+          <div class="base-value" id="baseSalario">R$ 0,00</div>
+        </div>
+        <div class="base-item">
+          <div class="base-label">Base de Cálc. FGTS</div>
+          <div class="base-value" id="baseFgts">R$ 0,00</div>
+        </div>
+        <div class="base-item">
+          <div class="base-label">FGTS do mês (8%)</div>
+          <div class="base-value" id="fgtsMes">R$ 0,00</div>
+        </div>
+        <div class="base-item">
+          <div class="base-label">Base de Cálc. INSS</div>
+          <div class="base-value" id="baseInss">R$ 0,00</div>
+        </div>
+        <div class="base-item">
+          <div class="base-label">Base de Cálc. IRRF</div>
+          <div class="base-value" id="baseIrrf">R$ 0,00</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DECLARAÇÃO + ASSINATURAS -->
+    <section class="box">
+      <div class="declaration">
+        DECLARO TER RECEBIDO A IMPORTÂNCIA LÍQUIDA DESCRITA NESTE RECIBO DE PAGAMENTO
+      </div>
+
+      <div class="signatures">
+        <div class="sig">
+          <div class="line"></div>
+          <div class="sig-label">Assinatura</div>
+        </div>
+        <div class="sig small">
+          <div class="line"></div>
+          <div class="sig-label">Data de Pagamento</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="no-print footer-note">
+      Dica: ao clicar em “Imprimir / PDF”, selecione “Salvar como PDF”.
+    </footer>
+  </main>
+
+  <template id="rowTemplate">
+    <div class="row">
+      <input class="desc" type="text" placeholder="Ex.: Salário Base, Hora Extra, INSS..." />
+      <input class="ref" type="text" placeholder="Ex.: 220h / 8% / -" />
+      <input class="money earning" type="text" inputmode="decimal" placeholder="0,00" />
+      <input class="money deduction" type="text" inputmode="decimal" placeholder="0,00" />
+      <button class="icon-btn no-print" title="Remover linha" aria-label="Remover">×</button>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>

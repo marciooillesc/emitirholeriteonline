@@ -3,8 +3,7 @@
   --muted:#666;
   --line:#111;
   --bg:#fff;
-  --pad:14px;
-  --radius:10px;
+  --soft:#eee;
 }
 
 *{ box-sizing:border-box; }
@@ -23,30 +22,22 @@ body{
   justify-content:space-between;
   gap:12px;
   padding:10px 14px;
-  background:#ffffff;
+  background:#fff;
   border-bottom:1px solid #ddd;
 }
-.toolbar-left{ display:flex; gap:10px; align-items:baseline; }
-.toolbar-right{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-
+.toolbar .left{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; }
+.toolbar .right{ display:flex; gap:8px; align-items:center; }
 .muted{ color:var(--muted); font-size:12px; }
 
 .btn{
-  border:1px solid #ccc;
+  border:1px solid #111;
   background:#fff;
-  padding:8px 10px;
+  padding:8px 12px;
   border-radius:10px;
   cursor:pointer;
-  font-weight:600;
+  font-weight:700;
 }
-.btn:hover{ background:#f7f7f7; }
-.btn-primary{
-  border-color:#111;
-}
-.btn-secondary{
-  border-color:#999;
-  color:#222;
-}
+.btn:hover{ background:#f8f8f8; }
 
 .page{
   width: 820px;
@@ -60,160 +51,103 @@ body{
 
 .box{
   border:2px solid var(--line);
-  border-radius: 2px;
-  padding: 10px;
+  border-radius:2px;
+  padding: 12px;
   margin-bottom: 14px;
 }
 
-.field{
+.head-grid{
   display:flex;
-  flex-direction:column;
-  gap:5px;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
 }
-.field label{
-  font-size:12px;
+.title{ font-weight:800; letter-spacing:.2px; }
+.subtitle{ color:var(--muted); font-size:12px; margin-top:4px; }
+.meta{ min-width: 220px; }
+
+.form-grid{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:2px solid var(--line);
+  display:grid;
+  grid-template-columns: 1.4fr 1fr 0.6fr 0.8fr;
+  gap:10px;
 }
-.field input, textarea{
+
+.field{ display:flex; flex-direction:column; gap:5px; }
+.field label{ font-size:12px; font-weight:700; }
+.field input{
   border:1px solid #999;
-  border-radius:8px;
+  border-radius:10px;
   padding:8px 10px;
   font-size:14px;
   outline:none;
 }
-textarea{
-  width:100%;
-  min-height:120px;
-  resize:vertical;
-}
 
-.grid-head{
-  display:grid;
-  grid-template-columns: 1fr 320px;
-  gap:14px;
-  align-items:start;
-}
-.col-right{
-  border-left:2px solid var(--line);
-  padding-left:14px;
-}
-.title{
-  text-align:right;
-  margin-bottom:10px;
-}
-.title-big{
-  font-weight:800;
-  letter-spacing:0.2px;
-}
-.title-sub{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-.grid-emp{
-  margin-top:12px;
-  border-top:2px solid var(--line);
-  padding-top:12px;
-  display:grid;
-  grid-template-columns: 140px 1fr 1fr 150px;
-  gap:10px;
-}
-.grid-emp .span-2{ grid-column: span 2; }
+.options{ margin-top:10px; }
+.check{ display:flex; gap:10px; align-items:center; font-size:13px; color:#222; }
 
 .table-head{
   display:grid;
-  grid-template-columns: 1.4fr 0.7fr 0.6fr 0.6fr;
+  grid-template-columns: 1.6fr 0.7fr 0.7fr;
   gap:8px;
-  padding: 6px 8px;
+  padding: 8px;
   font-weight:800;
   border-bottom:2px solid var(--line);
 }
-.align-right{ text-align:right; }
-
-.rows{
-  min-height: 280px;
-  padding: 6px 4px;
-}
+.table-body{ padding: 6px 4px; min-height: 140px; }
 .row{
   display:grid;
-  grid-template-columns: 1.4fr 0.7fr 0.6fr 0.6fr 36px;
+  grid-template-columns: 1.6fr 0.7fr 0.7fr;
   gap:8px;
-  padding:6px 4px;
-  align-items:center;
+  padding: 10px 8px;
+  border-bottom:1px solid #bbb;
 }
-.row input{
-  width:100%;
-}
-.money{ text-align:right; }
-.icon-btn{
-  width:32px;
-  height:32px;
-  border-radius:10px;
-  border:1px solid #bbb;
-  background:#fff;
-  cursor:pointer;
-  font-size:18px;
-  line-height:1;
-}
-.icon-btn:hover{ background:#f5f5f5; }
-
-.bottom-grid{
-  display:grid;
-  grid-template-columns: 1fr 280px;
-  gap:12px;
-}
-.subhead{
-  font-weight:800;
-  margin-bottom:8px;
-}
+.row:last-child{ border-bottom:none; }
+.desc{ font-weight:700; }
+.val{ font-weight:800; }
+.right-align{ text-align:right; }
 
 .totals{
-  border-left:2px solid var(--line);
-  padding-left:12px;
+  border-bottom:2px solid var(--line);
+  padding-bottom:10px;
 }
-.totals-row{
+.trow{
   display:flex;
   justify-content:space-between;
   gap:10px;
   padding:10px 0;
   border-bottom:1px solid #bbb;
 }
-.totals-label{ font-weight:700; }
-.totals-value{ font-weight:800; text-align:right; }
-.highlight{
-  border-bottom:none;
-  margin-top:4px;
-  padding-top:12px;
-}
-.highlight .totals-label{ font-size:15px; }
-.highlight .totals-value{ font-size:16px; }
+.trow:last-child{ border-bottom:none; }
+.tval{ font-weight:900; }
+.highlight .tval{ font-size:18px; }
+.highlight{ padding-top:12px; }
 
 .bases{
-  margin-top:12px;
-  border-top:2px solid var(--line);
-  padding-top:10px;
+  margin-top:10px;
   display:grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap:10px;
 }
-.base-item{
+.bitem{
   border-left:1px solid #bbb;
-  padding-left:8px;
+  padding-left:10px;
 }
-.base-item:first-child{ border-left:none; padding-left:0; }
-.base-label{ font-size:12px; font-weight:700; }
-.base-value{ margin-top:6px; font-weight:800; }
+.bitem:first-child{ border-left:none; padding-left:0; }
+.blabel{ font-size:12px; font-weight:700; color:#222; }
+.bval{ margin-top:6px; font-weight:900; }
 
-.declaration{
-  font-weight:800;
+.decl{
+  font-weight:900;
   text-align:center;
   padding: 4px 0 12px;
   border-bottom:2px solid var(--line);
 }
-
-.signatures{
+.sign{
   display:grid;
-  grid-template-columns: 1fr 260px;
+  grid-template-columns: 1fr 1fr;
   gap:24px;
   padding-top:14px;
 }
@@ -222,16 +156,11 @@ textarea{
   background:#111;
   margin-top:26px;
 }
-.sig-label{
+.lab{
   margin-top:6px;
   font-size:12px;
   text-align:center;
-}
-.footer-note{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:6px;
-  text-align:center;
+  color:#222;
 }
 
 /* PRINT */
@@ -245,10 +174,8 @@ textarea{
     padding:0;
   }
   .no-print{ display:none !important; }
-  input, textarea{
-    border: none !important;
-    padding: 0 !important;
+  input{
+    border:none !important;
+    padding:0 !important;
   }
-  .box{ margin-bottom:12px; }
-  textarea{ min-height:120px; }
 }

@@ -14,9 +14,9 @@
 
 <main class="page">
 
+<!-- EMPRESA -->
 <section class="box">
 
-  <!-- LOGO -->
   <div class="logo-box">
     <label class="logo-label">
       <input type="file" id="empresaLogo" accept="image/*">
@@ -25,11 +25,10 @@
     <img id="logoPreview">
   </div>
 
-  <!-- EMPRESA -->
   <div class="grid empresa">
     <div>
       <label>CNPJ *</label>
-      <input id="empresaCnpj" placeholder="00.000.000/0000-00">
+      <input id="empresaCnpj">
     </div>
     <div>
       <label>Empresa *</label>
@@ -43,6 +42,7 @@
 
 </section>
 
+<!-- HOLERITE -->
 <section class="box">
   <h2>RECIBO DE PAGAMENTO DE SALÁRIO</h2>
 
@@ -65,12 +65,13 @@
     </div>
   </div>
 
-  <label class="check">
+  <label class="check no-print">
     <input type="checkbox" id="simp" checked>
     Usar desconto simplificado
   </label>
 </section>
 
+<!-- TABELA -->
 <section class="box">
 <table>
   <tr><th>Descrição</th><th>Vencimentos</th><th>Descontos</th></tr>
@@ -80,6 +81,7 @@
 </table>
 </section>
 
+<!-- RESUMO -->
 <section class="box resumo">
   <div>Total Vencimentos: <strong id="totalV"></strong></div>
   <div>Total Descontos: <strong id="totalD"></strong></div>
@@ -87,7 +89,12 @@
   <div class="fgts">FGTS (8%): <strong id="fgts"></strong></div>
 </section>
 
+<!-- VALIDAÇÃO + ASSINATURA -->
 <section class="box">
+  <div class="validacao">
+    Código de validação: <strong id="codigoValidacao"></strong>
+  </div>
+
   <p class="decl">Declaro ter recebido a importância líquida descrita neste recibo.</p>
   <div class="linha"></div>
   <small>Assinatura</small>
